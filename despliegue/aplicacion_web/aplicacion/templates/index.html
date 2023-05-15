@@ -1,0 +1,98 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+
+  <title>CCBHash web</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+  
+  
+</head>
+
+<body class="p-3 mb-2 bg-light text-dark">
+  <div class="container-fluid">
+    <section id="header">
+      <h1 style="color:#21313C;background-color:#d8d7e0;text-align:center">CCBHASH WEB SERVICE</h1>
+      <br>
+    </section>
+    
+      
+    <section id="main">
+      <div class="container-sm">
+      <h4 style="color:#004275">Recalcular base de datos</h4>
+      <p class="lead">Con este botón puedes recalcular la clasificación de los ficheros que eran sospechosos por si nos llega nuevo malware! </p>
+      <form method="POST" action="{% url 'classify_again' %}">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-primary" value="Recalcular base de datos">
+      </form>
+    </div>
+    <br>
+    <br>
+    <div class="container-sm">
+      <h4 style="color:#004275">Enviar nuevo malware</h4>
+      <p class="lead">Selecciona y envia una carpeta comprimida (extensión .zip) con ficheros malware para aumentar nuestra bases de datos. </p>
+   
+      {% if request.GET.error == "1" %}
+        <p  class="text-warning">El archivo debe tener la extensión '.zip'.</p>
+      {% endif %}
+      {% if request.GET.error == "2" %}
+        <p  class="text-warning">Selecciona un archivo antes.</p>
+      {% endif %}
+      <form action="{% url 'send_malware' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input class="form-control" type="file" name="miArchivo" accept=".zip">
+        <input type="submit" class="btn btn-primary" value="Enviar malware" required>
+        
+    </form>
+  </div>
+  <br>
+  <br>
+  <div class="container-sm">
+    <h4 style="color:#004275">Estadísticas</h4>
+    <p class="lead">Aquí puede ver distintas estadísticas sobre nuestra base de datos. </p>
+ 
+
+      <br>
+      <iframe style="background: #21313C;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="800" height="480" src="https://charts.mongodb.com/charts-project-0-pghtl/embed/charts?id=6423e1f2-83dc-418a-8ce6-92cd2198fda9&maxDataAge=60&theme=dark&autoRefresh=true"></iframe>
+      <iframe style="background: #21313C;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="360" height="280" src="https://charts.mongodb.com/charts-project-0-pghtl/embed/charts?id=6423dfdd-2b73-4ea3-8978-f5158a56c60a&maxDataAge=60&theme=dark&autoRefresh=true"></iframe>
+      <br>
+      <iframe style="background: #21313C;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="1161" height="480" src="https://charts.mongodb.com/charts-project-0-pghtl/embed/charts?id=64317fbb-1cbe-4a16-83a8-709dd68ad9fd&maxDataAge=60&theme=dark&autoRefresh=true"></iframe>
+    
+    </section>
+  </div>
+  </div>
+    <section id="footer">
+      <footer class="bg-light text-center text-lg-start">
+        <div class="container p-4">
+          <div class="row">
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+              <h5 class="text-uppercase">CCBHash Analyzer</h5>
+              <p>
+                Descripción de tu página aquí.
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+              <h5 class="text-uppercase">Contacto</h5>
+              <ul class="list-unstyled mb-0">
+                <li>
+                  <a href="#!" class="text-dark">Email</a>
+                </li>
+                <li>
+                  <a href="#!" class="text-dark">Teléfono</a>
+                </li>
+                <li>
+                  <a href="#!" class="text-dark">Dirección</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+          © 2023 CCBHash Analyzer. Creado por Jose Carlos Garcia.
+        </div>
+      </footer>
+    </section>
+    
+</body>
+</html>
